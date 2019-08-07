@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Math Tools, written by Alva Chien</title>
+        <link rel="stylesheet" href="./default.css" type="text/css" />
+    </head>
+    <body>
+
+        <div class="toolbar">
+            <div>Functions:</div>
+            <select name="functions" onchange="drawFunc(this)">
+                <option></option>
+                <option value="abs">绝对值函数 y=|x|</option>
+                <option value="sgn">符号函数 y=sgn x</option>
+            </select>
+        </div>
+        
+        <canvas id="content" width="300" height="300"></canvas>
+
+<script>
+function drawFunc(obj) {  
+ if (obj.options[obj.selectedIndex].value === 'abs') {
+   drawAbs();
+ } else if(obj.options[obj.selectedIndex].value === 'sgn') {
+   drawSgn();
+ }
+}
+
+function drawAbs() {
+    var canvas = document.getElementById('content');
+    if (!canvas.getContext) return;
+    var ctx = canvas.getContext("2d");
+    ctx.clearRect(0,0,canvas.width,canvas.height);  
+
+    // Axis - X
+    ctx.beginPath();
+    ctx.moveTo(0, 150);
+    ctx.lineTo(300, 150);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.save();
+
+    ctx.setLineDash([20, 5]);
+    ctx.lineDashOffset = -0;
+    for(var i = 1; i < 20; i ++) {
+        ctx.beginPath();
+        ctx.moveTo(15 * i, 0);
+        ctx.lineTo(15 * i, 300);
+        ctx.closePath();
+        ctx.stroke();
+    }
+    ctx.restore();
+    
+    // Axis - Y
+    ctx.beginPath();
+    ctx.moveTo(150, 0);
+    ctx.lineTo(150, 300);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.save();
+
+    ctx.setLineDash([20, 5]);
+    ctx.lineDashOffset = -0;
+    for(var i = 1; i < 20; i ++) {
+        ctx.beginPath();
+        ctx.moveTo(0, 15 * i);
+        ctx.lineTo(300, 15 * i);
+        ctx.closePath();
+        ctx.stroke();
+    }
+    ctx.restore();
+
+    // ABS
+    ctx.beginPath();
+    ctx.moveTo(150, 150);
+    ctx.lineTo(300, 0);
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(150, 150);
+    ctx.lineTo(0, 0);
+    ctx.closePath();
+    ctx.stroke();
+}
+
+function drawSgn() {
+    var canvas = document.getElementById('content');
+    if (!canvas.getContext) return;
+    var ctx = canvas.getContext("2d");
+    ctx.clearRect(0,0,canvas.width,canvas.height);  
+
+    // Axis - X
+    ctx.beginPath();
+    ctx.moveTo(0, 150);
+    ctx.lineTo(300, 150);
+    ctx.closePath();
+    ctx.stroke();
+    
+    // Axis - Y
+    ctx.beginPath();
+    ctx.moveTo(150, 0);
+    ctx.lineTo(150, 300);
+    ctx.closePath();
+    ctx.stroke();
+
+    // SGN
+    ctx.beginPath();
+    ctx.moveTo(150, 135);
+    ctx.lineTo(300, 135);
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(150, 165);
+    ctx.lineTo(0, 165);
+    ctx.closePath();
+    ctx.stroke();
+}
+</script>
+</body>
+    </body>
+</html>
