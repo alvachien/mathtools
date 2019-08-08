@@ -1,124 +1,176 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Math Tools, written by Alva Chien</title>
-        <link rel="stylesheet" href="./default.css" type="text/css" />
-    </head>
-    <body>
 
-        <div class="toolbar">
-            <div>Functions:</div>
-            <select name="functions" onchange="drawFunc(this)">
-                <option></option>
-                <option value="abs">绝对值函数 y=|x|</option>
-                <option value="sgn">符号函数 y=sgn x</option>
-            </select>
-        </div>
-        
-        <canvas id="content" width="300" height="300"></canvas>
+<head>
+  <meta charset="UTF-8">
+  <title>Math Tools, written by Alva Chien</title>
+  <link rel="stylesheet" href="./default.css" type="text/css" />
+</head>
 
-<script>
-function drawFunc(obj) {  
- if (obj.options[obj.selectedIndex].value === 'abs') {
-   drawAbs();
- } else if(obj.options[obj.selectedIndex].value === 'sgn') {
-   drawSgn();
- }
-}
+<body>
 
-function drawAbs() {
-    var canvas = document.getElementById('content');
-    if (!canvas.getContext) return;
-    var ctx = canvas.getContext("2d");
-    ctx.clearRect(0,0,canvas.width,canvas.height);  
+  <div class="toolbar">
+    <label>Functions:</label>
+    <select name="functions" onchange="drawFunc(this)">
+      <option></option>
+      <option value="abs">绝对值函数 y=|x|</option>
+      <option value="sgn">符号函数 y=sgn x</option>
+    </select>
+    <label>Grid:</label>
+    <input type="number" id="gridcount" readonly onchange="gridChange(this)">
+  </div>
 
-    // Axis - X
-    ctx.beginPath();
-    ctx.moveTo(0, 150);
-    ctx.lineTo(300, 150);
-    ctx.closePath();
-    ctx.stroke();
-    ctx.save();
+  <canvas class="content" id="content"></canvas>
 
-    ctx.setLineDash([20, 5]);
-    ctx.lineDashOffset = -0;
-    for(var i = 1; i < 20; i ++) {
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('gridcount').value = 10;
+      // document.getElementById('gridcount').onchange();
+    });
+
+    function drawFunc(obj) {
+      var canvas = document.getElementById('content');
+      if (!canvas.getContext) return;
+
+      var ctx = canvas.getContext("2d");
+      let fullwidth = canvas.width;
+      let fullheight = canvas.height;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let gridcount = document.getElementById('gridcount').value;
+
+      if (obj.options[obj.selectedIndex].value === 'abs') {
+        drawCartesian(ctx, gridcount, fullwidth, fullheight);
+        drawAbs(ctx, gridcount, fullwidth, fullheight);
+      } else if (obj.options[obj.selectedIndex].value === 'sgn') {
+        drawCartesian(ctx, gridcount, fullwidth, fullheight);
+        drawSgn(ctx, gridcount, fullwidth, fullheight);
+      }
+    }
+
+    function gridChange(obj) {
+      console.log(obj.value);
+    }
+
+    function drawCartesian(ctx, gridcount, fullwidth, fullheight) {
+      let xsize = fullwidth / gridcount;
+      let ysize = fullheight / gridcount;
+      let cpx = fullwidth / 2;
+      let cpy = fullheight / 2;
+
+      // Axis - X
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, cpy);
+      ctx.lineTo(fullwidth, cpy);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.save();
+
+      ctx.setLineDash([5, 10]);
+      ctx.strokeStyle = "grey";
+      ctx.lineWidth = 0.5;
+      for (var i = 1; i < 2 * gridcount; i++) {
         ctx.beginPath();
-        ctx.moveTo(15 * i, 0);
-        ctx.lineTo(15 * i, 300);
+        ctx.moveTo(xsize * i, 0);
+        ctx.lineTo(xsize * i, fullheight);
         ctx.closePath();
         ctx.stroke();
-    }
-    ctx.restore();
-    
-    // Axis - Y
-    ctx.beginPath();
-    ctx.moveTo(150, 0);
-    ctx.lineTo(150, 300);
-    ctx.closePath();
-    ctx.stroke();
-    ctx.save();
+      }
+      ctx.restore();
 
-    ctx.setLineDash([20, 5]);
-    ctx.lineDashOffset = -0;
-    for(var i = 1; i < 20; i ++) {
+      // Axis - Y
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(cpx, 0);
+      ctx.lineTo(cpx, fullheight);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.save();
+
+      ctx.setLineDash([5, 10]);
+      ctx.strokeStyle = "grey";
+      ctx.lineWidth = 0.5;
+      for (var i = 1; i < 2 * gridcount; i++) {
         ctx.beginPath();
-        ctx.moveTo(0, 15 * i);
-        ctx.lineTo(300, 15 * i);
+        ctx.moveTo(0, ysize * i);
+        ctx.lineTo(fullwidth, ysize * i);
         ctx.closePath();
         ctx.stroke();
+      }
+      ctx.restore();
     }
-    ctx.restore();
 
-    // ABS
-    ctx.beginPath();
-    ctx.moveTo(150, 150);
-    ctx.lineTo(300, 0);
-    ctx.closePath();
-    ctx.stroke();
+    function drawAbs(ctx, gridcount, fullwidth, fullheight) {
+      let xsize = fullwidth / gridcount;
+      let ysize = fullheight / gridcount;
+      let cpx = fullwidth / 2;
+      let cpy = fullheight / 2;
 
-    ctx.beginPath();
-    ctx.moveTo(150, 150);
-    ctx.lineTo(0, 0);
-    ctx.closePath();
-    ctx.stroke();
-}
+      // ABS
+      ctx.beginPath();
+      ctx.moveTo(cpx, cpy);
+      ctx.lineTo(fullwidth, 0);
+      ctx.closePath();
+      ctx.stroke();
 
-function drawSgn() {
-    var canvas = document.getElementById('content');
-    if (!canvas.getContext) return;
-    var ctx = canvas.getContext("2d");
-    ctx.clearRect(0,0,canvas.width,canvas.height);  
+      ctx.beginPath();
+      ctx.moveTo(cpx, cpy);
+      ctx.lineTo(0, 0);
+      ctx.closePath();
+      ctx.stroke();
+    }
 
-    // Axis - X
-    ctx.beginPath();
-    ctx.moveTo(0, 150);
-    ctx.lineTo(300, 150);
-    ctx.closePath();
-    ctx.stroke();
-    
-    // Axis - Y
-    ctx.beginPath();
-    ctx.moveTo(150, 0);
-    ctx.lineTo(150, 300);
-    ctx.closePath();
-    ctx.stroke();
+    function drawSgn(ctx, gridcount, fullwidth, fullheight) {
+      let xsize = fullwidth / gridcount;
+      let ysize = fullheight / gridcount;
+      let cpx = fullwidth / 2;
+      let cpy = fullheight / 2;
 
-    // SGN
-    ctx.beginPath();
-    ctx.moveTo(150, 135);
-    ctx.lineTo(300, 135);
-    ctx.closePath();
-    ctx.stroke();
+      // SGN
+      ctx.beginPath();
+      ctx.moveTo(cpx, cpy - ysize);
+      ctx.lineTo(ctx.width, cpy - ysize);
+      ctx.closePath();
+      ctx.stroke();
 
-    ctx.beginPath();
-    ctx.moveTo(150, 165);
-    ctx.lineTo(0, 165);
-    ctx.closePath();
-    ctx.stroke();
-}
-</script>
+      ctx.beginPath();
+      ctx.moveTo(cpx, cpy + ysize);
+      ctx.lineTo(0, cpy + ysize);
+      ctx.closePath();
+      ctx.stroke();
+    }
+
+    function arrow_line(ctx, ox, oy, x1, y1, x2, y2) {
+      var sta = new Array(x1, y1);
+      var end = new Array(x2, y2);
+
+      // Lines
+      ctx.beginPath();
+      ctx.translate(ox, oy, 0); //坐标源点 
+      ctx.moveTo(sta[0], sta[1]);
+      ctx.lineTo(end[0], end[1]);
+      ctx.fill();
+      ctx.stroke();
+      ctx.save();
+
+      // Arrow
+      ctx.translate(end[0], end[1]);
+      var ang = (end[0] - sta[0]) / (end[1] - sta[1]);
+      ang = Math.atan(ang);
+      if (end[1] - sta[1] >= 0) {
+        ctx.rotate(-ang);
+      } else {
+        ctx.rotate(Math.PI - ang);
+      }
+      ctx.lineTo(-5, -10);
+      ctx.lineTo(0, -5);
+      ctx.lineTo(5, -10);
+      ctx.lineTo(0, 0);
+      ctx.fill();
+      ctx.restore();
+      ctx.closePath();
+    }
+  </script>
 </body>
-    </body>
+
 </html>
