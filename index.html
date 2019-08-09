@@ -14,7 +14,9 @@
     <select name="functions" onchange="drawFunc(this)">
       <option></option>
       <option value="abs">绝对值函数 y=|x|</option>
-      <option value="sgn">符号函数 y=sgn x</option>
+      <option value="sgn">符号函数 y=sgn x</option>s
+      <option value="sin">正弦函数 y=sin x</option>
+      <option value="cos">余弦函数 y=cos x</option>
     </select>
     <label>Grid:</label>
     <input type="number" id="gridcount" readonly onchange="gridChange(this)">
@@ -44,6 +46,12 @@
       } else if (obj.options[obj.selectedIndex].value === 'sgn') {
         drawCartesian(ctx, gridcount, fullwidth, fullheight);
         drawSgn(ctx, gridcount, fullwidth, fullheight);
+      } else if (obj.options[obj.selectedIndex].value === 'sin') {
+        drawCartesian(ctx, gridcount, fullwidth, fullheight);
+        drawSin(ctx, gridcount, fullwidth, fullheight);
+      } else if (obj.options[obj.selectedIndex].value === 'cos') {
+        drawCartesian(ctx, gridcount, fullwidth, fullheight);
+        drawCos(ctx, gridcount, fullwidth, fullheight);
       }
     }
 
@@ -62,6 +70,16 @@
       ctx.beginPath();
       ctx.moveTo(0, cpy);
       ctx.lineTo(fullwidth, cpy);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(fullwidth, cpy);
+      ctx.lineTo(fullwidth - xsize, cpy - xsize / 4);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(fullwidth, cpy);
+      ctx.lineTo(fullwidth - xsize, cpy + xsize / 4);
       ctx.closePath();
       ctx.stroke();
       ctx.save();
@@ -83,6 +101,16 @@
       ctx.beginPath();
       ctx.moveTo(cpx, 0);
       ctx.lineTo(cpx, fullheight);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(cpx, 0);
+      ctx.lineTo(cpx - xsize / 2, xsize / 2);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(cpx, 0);
+      ctx.lineTo(cpx + xsize / 2, xsize / 2);
       ctx.closePath();
       ctx.stroke();
       ctx.save();
@@ -129,7 +157,7 @@
       // SGN
       ctx.beginPath();
       ctx.moveTo(cpx, cpy - ysize);
-      ctx.lineTo(ctx.width, cpy - ysize);
+      ctx.lineTo(fullwidth, cpy - ysize);
       ctx.closePath();
       ctx.stroke();
 
@@ -140,35 +168,23 @@
       ctx.stroke();
     }
 
-    function arrow_line(ctx, ox, oy, x1, y1, x2, y2) {
-      var sta = new Array(x1, y1);
-      var end = new Array(x2, y2);
+    function drawSin(ctx, gridcount, fullwidth, fullheight) {
+      let xsize = fullwidth / gridcount;
+      let ysize = fullheight / gridcount;
+      let cpx = fullwidth / 2;
+      let cpy = fullheight / 2;
 
-      // Lines
-      ctx.beginPath();
-      ctx.translate(ox, oy, 0); //坐标源点 
-      ctx.moveTo(sta[0], sta[1]);
-      ctx.lineTo(end[0], end[1]);
-      ctx.fill();
-      ctx.stroke();
-      ctx.save();
+      // SIN
 
-      // Arrow
-      ctx.translate(end[0], end[1]);
-      var ang = (end[0] - sta[0]) / (end[1] - sta[1]);
-      ang = Math.atan(ang);
-      if (end[1] - sta[1] >= 0) {
-        ctx.rotate(-ang);
-      } else {
-        ctx.rotate(Math.PI - ang);
-      }
-      ctx.lineTo(-5, -10);
-      ctx.lineTo(0, -5);
-      ctx.lineTo(5, -10);
-      ctx.lineTo(0, 0);
-      ctx.fill();
-      ctx.restore();
-      ctx.closePath();
+    }
+    function drawCos(ctx, gridcount, fullwidth, fullheight) {
+      let xsize = fullwidth / gridcount;
+      let ysize = fullheight / gridcount;
+      let cpx = fullwidth / 2;
+      let cpy = fullheight / 2;
+
+      // COS
+      
     }
   </script>
 </body>
