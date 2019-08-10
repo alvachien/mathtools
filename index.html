@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>Math Tools, written by Alva Chien</title>
   <link rel="stylesheet" href="./default.css" type="text/css" />
+  <script type="text/javascript" async charset="utf-8" src="./func_graph.js"></script>
 </head>
 
 <body>
@@ -14,9 +15,12 @@
     <select name="functions" onchange="drawFunc(this)">
       <option></option>
       <option value="abs">绝对值函数 y=|x|</option>
-      <option value="sgn">符号函数 y=sgn x</option>s
-      <option value="sin">正弦函数 y=sin x</option>
-      <option value="cos">余弦函数 y=cos x</option>
+      <option value="sgn">符号函数 y=sgn(x)</option>
+      <option value="ceil">取整函数1 y=ceil(x)</option>
+      <option value="round">取整函数2 y=round(x)</option>
+      <option value="floor">取整函数3 y=floor(x)</option>
+      <option value="sin">正弦函数 y=sin(x)</option>
+      <option value="cos">余弦函数 y=cos(x)</option>
     </select>
     <label>Grid:</label>
     <input type="number" id="gridcount" readonly onchange="gridChange(this)">
@@ -30,162 +34,6 @@
       // document.getElementById('gridcount').onchange();
     });
 
-    function drawFunc(obj) {
-      var canvas = document.getElementById('content');
-      if (!canvas.getContext) return;
-
-      var ctx = canvas.getContext("2d");
-      let fullwidth = canvas.width;
-      let fullheight = canvas.height;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      let gridcount = document.getElementById('gridcount').value;
-
-      if (obj.options[obj.selectedIndex].value === 'abs') {
-        drawCartesian(ctx, gridcount, fullwidth, fullheight);
-        drawAbs(ctx, gridcount, fullwidth, fullheight);
-      } else if (obj.options[obj.selectedIndex].value === 'sgn') {
-        drawCartesian(ctx, gridcount, fullwidth, fullheight);
-        drawSgn(ctx, gridcount, fullwidth, fullheight);
-      } else if (obj.options[obj.selectedIndex].value === 'sin') {
-        drawCartesian(ctx, gridcount, fullwidth, fullheight);
-        drawSin(ctx, gridcount, fullwidth, fullheight);
-      } else if (obj.options[obj.selectedIndex].value === 'cos') {
-        drawCartesian(ctx, gridcount, fullwidth, fullheight);
-        drawCos(ctx, gridcount, fullwidth, fullheight);
-      }
-    }
-
-    function gridChange(obj) {
-      console.log(obj.value);
-    }
-
-    function drawCartesian(ctx, gridcount, fullwidth, fullheight) {
-      let xsize = fullwidth / gridcount;
-      let ysize = fullheight / gridcount;
-      let cpx = fullwidth / 2;
-      let cpy = fullheight / 2;
-
-      // Axis - X
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(0, cpy);
-      ctx.lineTo(fullwidth, cpy);
-      ctx.closePath();
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(fullwidth, cpy);
-      ctx.lineTo(fullwidth - xsize, cpy - xsize / 4);
-      ctx.closePath();
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(fullwidth, cpy);
-      ctx.lineTo(fullwidth - xsize, cpy + xsize / 4);
-      ctx.closePath();
-      ctx.stroke();
-      ctx.save();
-
-      ctx.setLineDash([5, 10]);
-      ctx.strokeStyle = "grey";
-      ctx.lineWidth = 0.5;
-      for (var i = 1; i < 2 * gridcount; i++) {
-        ctx.beginPath();
-        ctx.moveTo(xsize * i, 0);
-        ctx.lineTo(xsize * i, fullheight);
-        ctx.closePath();
-        ctx.stroke();
-      }
-      ctx.restore();
-
-      // Axis - Y
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(cpx, 0);
-      ctx.lineTo(cpx, fullheight);
-      ctx.closePath();
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(cpx, 0);
-      ctx.lineTo(cpx - xsize / 2, xsize / 2);
-      ctx.closePath();
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(cpx, 0);
-      ctx.lineTo(cpx + xsize / 2, xsize / 2);
-      ctx.closePath();
-      ctx.stroke();
-      ctx.save();
-
-      ctx.setLineDash([5, 10]);
-      ctx.strokeStyle = "grey";
-      ctx.lineWidth = 0.5;
-      for (var i = 1; i < 2 * gridcount; i++) {
-        ctx.beginPath();
-        ctx.moveTo(0, ysize * i);
-        ctx.lineTo(fullwidth, ysize * i);
-        ctx.closePath();
-        ctx.stroke();
-      }
-      ctx.restore();
-    }
-
-    function drawAbs(ctx, gridcount, fullwidth, fullheight) {
-      let xsize = fullwidth / gridcount;
-      let ysize = fullheight / gridcount;
-      let cpx = fullwidth / 2;
-      let cpy = fullheight / 2;
-
-      // ABS
-      ctx.beginPath();
-      ctx.moveTo(cpx, cpy);
-      ctx.lineTo(fullwidth, 0);
-      ctx.closePath();
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.moveTo(cpx, cpy);
-      ctx.lineTo(0, 0);
-      ctx.closePath();
-      ctx.stroke();
-    }
-
-    function drawSgn(ctx, gridcount, fullwidth, fullheight) {
-      let xsize = fullwidth / gridcount;
-      let ysize = fullheight / gridcount;
-      let cpx = fullwidth / 2;
-      let cpy = fullheight / 2;
-
-      // SGN
-      ctx.beginPath();
-      ctx.moveTo(cpx, cpy - ysize);
-      ctx.lineTo(fullwidth, cpy - ysize);
-      ctx.closePath();
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.moveTo(cpx, cpy + ysize);
-      ctx.lineTo(0, cpy + ysize);
-      ctx.closePath();
-      ctx.stroke();
-    }
-
-    function drawSin(ctx, gridcount, fullwidth, fullheight) {
-      let xsize = fullwidth / gridcount;
-      let ysize = fullheight / gridcount;
-      let cpx = fullwidth / 2;
-      let cpy = fullheight / 2;
-
-      // SIN
-
-    }
-    function drawCos(ctx, gridcount, fullwidth, fullheight) {
-      let xsize = fullwidth / gridcount;
-      let ysize = fullheight / gridcount;
-      let cpx = fullwidth / 2;
-      let cpy = fullheight / 2;
-
-      // COS
-      
-    }
   </script>
 </body>
 
