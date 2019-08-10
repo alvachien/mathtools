@@ -8,6 +8,8 @@ A set of tools for Math
     - Floor function;
     - Sin function;
     - Cos function;
+    - tan function;
+    - cot function;
     - Square function;
     - Cube function;
 - Others

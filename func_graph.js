@@ -30,6 +30,18 @@ function drawFunc(obj) {
   } else if (obj.options[obj.selectedIndex].value === 'cos') {
     drawCartesian(ctx, gridcount, fullwidth, fullheight);
     drawCos(ctx, gridcount, fullwidth, fullheight);
+  } else if (obj.options[obj.selectedIndex].value === 'tan') {
+    drawCartesian(ctx, gridcount, fullwidth, fullheight);
+    drawTan(ctx, gridcount, fullwidth, fullheight);
+  } else if (obj.options[obj.selectedIndex].value === 'cot') {
+    drawCartesian(ctx, gridcount, fullwidth, fullheight);
+    drawCot(ctx, gridcount, fullwidth, fullheight);
+  } else if (obj.options[obj.selectedIndex].value === 'square') {
+    drawCartesian(ctx, gridcount, fullwidth, fullheight);
+    drawSquare(ctx, gridcount, fullwidth, fullheight);
+  } else if (obj.options[obj.selectedIndex].value === 'cube') {
+    drawCartesian(ctx, gridcount, fullwidth, fullheight);
+    drawCube(ctx, gridcount, fullwidth, fullheight);
   }
 }
 
@@ -230,6 +242,75 @@ function drawCos(ctx, gridcount, fullwidth, fullheight) {
   ctx.moveTo(cpx + x * xsize, cpy - Math.cos(x) * ysize);
   for (; x < gridcount / 2; x += 0.1) {
     ctx.lineTo(cpx + x * xsize, cpy - ysize * Math.cos(x));
+    ctx.stroke();
+  }
+  ctx.closePath();
+}
+
+function drawTan(ctx, gridcount, fullwidth, fullheight) {
+  let xsize = fullwidth / gridcount;
+  let ysize = fullheight / gridcount;
+  let cpx = fullwidth / 2;
+  let cpy = fullheight / 2;
+
+  // COS
+  let x = -1 * gridcount / 2;
+  ctx.beginPath();
+  ctx.moveTo(cpx + x * xsize, cpy - Math.cos(x) * ysize);
+  for (; x < gridcount / 2; x += 0.1) {
+    ctx.lineTo(cpx + x * xsize, cpy - ysize * Math.cos(x));
+    ctx.stroke();
+  }
+  ctx.closePath();
+}
+
+function drawCot(ctx, gridcount, fullwidth, fullheight) {
+  let xsize = fullwidth / gridcount;
+  let ysize = fullheight / gridcount;
+  let cpx = fullwidth / 2;
+  let cpy = fullheight / 2;
+
+  // COS
+  let x = -1 * gridcount / 2;
+  ctx.beginPath();
+  ctx.moveTo(cpx + x * xsize, cpy - Math.cot(x) * ysize);
+  for (; x < gridcount / 2; x += 0.1) {
+    ctx.lineTo(cpx + x * xsize, cpy - ysize * Math.cos(x));
+    ctx.stroke();
+  }
+  ctx.closePath();
+}
+
+function drawSquare(ctx, gridcount, fullwidth, fullheight) {
+  let xsize = fullwidth / gridcount;
+  let ysize = fullheight / gridcount;
+  let cpx = fullwidth / 2;
+  let cpy = fullheight / 2;
+
+  // COS
+  let x = -1 * gridcount / 2;
+  ctx.beginPath();
+  ctx.moveTo(cpx + x * xsize, cpy - Math.pow(x, 2) * ysize);
+  for (; x < gridcount / 2; x += 0.1) {
+    ctx.lineTo(cpx + x * xsize, cpy - ysize * Math.pow(x, 2));
+    ctx.stroke();
+  }
+  ctx.closePath();
+}
+
+
+function drawCube(ctx, gridcount, fullwidth, fullheight) {
+  let xsize = fullwidth / gridcount;
+  let ysize = fullheight / gridcount;
+  let cpx = fullwidth / 2;
+  let cpy = fullheight / 2;
+
+  // COS
+  let x = -1 * gridcount / 2;
+  ctx.beginPath();
+  ctx.moveTo(cpx + x * xsize, cpy - Math.pow(x, 3) * ysize);
+  for (; x < gridcount / 2; x += 0.1) {
+    ctx.lineTo(cpx + x * xsize, cpy - ysize * Math.pow(x, 3));
     ctx.stroke();
   }
   ctx.closePath();
