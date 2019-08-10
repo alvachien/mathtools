@@ -253,12 +253,12 @@ function drawTan(ctx, gridcount, fullwidth, fullheight) {
   let cpx = fullwidth / 2;
   let cpy = fullheight / 2;
 
-  // COS
+  // TAN
   let x = -1 * gridcount / 2;
   ctx.beginPath();
-  ctx.moveTo(cpx + x * xsize, cpy - Math.cos(x) * ysize);
+  ctx.moveTo(cpx + x * xsize, cpy - Math.sin(x) / Math.cos(x) * ysize);
   for (; x < gridcount / 2; x += 0.1) {
-    ctx.lineTo(cpx + x * xsize, cpy - ysize * Math.cos(x));
+    ctx.lineTo(cpx + x * xsize, cpy - ysize * Math.sin(x) / Math.cos(x));
     ctx.stroke();
   }
   ctx.closePath();
@@ -270,12 +270,12 @@ function drawCot(ctx, gridcount, fullwidth, fullheight) {
   let cpx = fullwidth / 2;
   let cpy = fullheight / 2;
 
-  // COS
+  // COT
   let x = -1 * gridcount / 2;
   ctx.beginPath();
-  ctx.moveTo(cpx + x * xsize, cpy - Math.cot(x) * ysize);
+  ctx.moveTo(cpx + x * xsize, cpy - ysize * Math.cos(x) / Math.sin(x));
   for (; x < gridcount / 2; x += 0.1) {
-    ctx.lineTo(cpx + x * xsize, cpy - ysize * Math.cos(x));
+    ctx.lineTo(cpx + x * xsize, cpy - ysize * Math.cos(x) / Math.sin(x));
     ctx.stroke();
   }
   ctx.closePath();
