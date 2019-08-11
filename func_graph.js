@@ -287,7 +287,7 @@ function drawSquare(ctx, gridcount, fullwidth, fullheight) {
   let cpx = fullwidth / 2;
   let cpy = fullheight / 2;
 
-  // COS
+  // Square
   let x = -1 * gridcount / 2;
   ctx.beginPath();
   ctx.moveTo(cpx + x * xsize, cpy - Math.pow(x, 2) * ysize);
@@ -305,7 +305,7 @@ function drawCube(ctx, gridcount, fullwidth, fullheight) {
   let cpx = fullwidth / 2;
   let cpy = fullheight / 2;
 
-  // COS
+  // Cube
   let x = -1 * gridcount / 2;
   ctx.beginPath();
   ctx.moveTo(cpx + x * xsize, cpy - Math.pow(x, 3) * ysize);
