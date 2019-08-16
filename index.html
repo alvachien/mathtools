@@ -9,54 +9,61 @@
 </head>
 
 <body>
-
-  <div class="page-header">
-    <div class="page-header-logo">
-      LOGO
-    </div>
-    <div class="page-header-wrap">
-      <ul class="page-header-nav">
-        <li>
-          <div class="page-header-nav-item">A</div>
-        </li>
-        <li>
-          <div class="page-header-nav-item">A</div>
-        </li>
-      </ul>
-      <div class="page-header-search">
-        <input />
+  <div class="page-default">
+    <div class="page-header">
+      <!-- <div class="page-header-logo">
+        LOGO
+      </div> -->
+      <div class="page-header-wrap">
+        <ul class="page-header-nav">
+          <li>
+            <div class="page-header-nav-item">
+              <span>Functions:</span>
+              <span>
+                <select name="functions" onchange="drawFunc(this)">
+                  <option></option>
+                  <option value="abs">绝对值函数 y=|x|</option>
+                  <option value="sgn">符号函数 y=sgn(x)</option>
+                  <option value="ceil">取整函数1 y=ceil(x)</option>
+                  <option value="round">取整函数2 y=round(x)</option>
+                  <option value="floor">取整函数3 y=floor(x)</option>
+                  <option value="square">平方函数 y=x^2</option>
+                  <option value="cube">立方函数 y=x^3</option>
+                  <option value="sin">正弦函数 y=sin(x)</option>
+                  <option value="cos">余弦函数 y=cos(x)</option>
+                  <option value="tan">正弦函数 y=tan(x)</option>
+                  <option value="cot">余弦函数 y=cot(x)</option>
+                </select>                
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="page-header-nav-item">
+              <span>Grid:</span>
+              <span>
+                <input type="number" id="gridcount" readonly onchange="gridChange(this)">
+              </span>
+            </div>
+          </li>
+        </ul>
+        <div class="page-header-search">
+          <input />
+        </div>
+        <ul class="page-header-nav">
+          <li>
+            <div class="page-header-nav-item">C</div>
+          </li>
+          <li>
+            <div class="page-header-nav-item">C</div>
+          </li>
+        </ul>
       </div>
-      <ul class="page-header-nav">
-        <li>
-          <div class="page-header-nav-item">C</div>
-        </li>
-        <li>
-          <div class="page-header-nav-item">C</div>
-        </li>
-      </ul>
     </div>
+    
+    <section class="page-content">
+      <canvas class="content" id="content"></canvas>
+    </section>
   </div>
-  <div class="toolbar">
-    <label>Functions:</label>
-    <select name="functions" onchange="drawFunc(this)">
-      <option></option>
-      <option value="abs">绝对值函数 y=|x|</option>
-      <option value="sgn">符号函数 y=sgn(x)</option>
-      <option value="ceil">取整函数1 y=ceil(x)</option>
-      <option value="round">取整函数2 y=round(x)</option>
-      <option value="floor">取整函数3 y=floor(x)</option>
-      <option value="square">平方函数 y=x^2</option>
-      <option value="cube">立方函数 y=x^3</option>
-      <option value="sin">正弦函数 y=sin(x)</option>
-      <option value="cos">余弦函数 y=cos(x)</option>
-      <option value="tan">正弦函数 y=tan(x)</option>
-      <option value="cot">余弦函数 y=cot(x)</option>
-    </select>
-    <label>Grid:</label>
-    <input type="number" id="gridcount" readonly onchange="gridChange(this)">
-  </div>
-
-  <canvas class="content" id="content"></canvas>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
