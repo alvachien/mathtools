@@ -1,0 +1,26 @@
+.cs-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.cs-loader-inner {
+    transform: translateY(-50%);
+    top: 50%;
+    position: absolute;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+}
+
+.cs-loader-inner label:nth-child(1) {
+    animation: lol 3s .5s infinite ease-in-out;
+}
+
+.cs-loader-inner label {
+    font-size: 20px;
+    opacity: 0;
+    display: inline-block;
+}

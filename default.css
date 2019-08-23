@@ -157,7 +157,7 @@
   overflow: hidden;
 }
 
-.sidebar-nav__open>.sidebar-nav__sub {
+.page-sidebar-nav-open>.page-sidebar-nav-item-sub {
   display: block;
   -webkit-animation: .5s fadeIn;
   animation: .5s fadeIn;
