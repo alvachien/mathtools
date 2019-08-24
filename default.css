@@ -40,6 +40,26 @@
   display: block;
 }
 
+.page-header-logo-link {
+  display: block;
+  text-align: center;
+}
+
+.page-header-logo-expanded, .page-header-logo-collapsed {
+  max-width: 100%;
+  vertical-align: middle;
+  -webkit-animation: 1s fadeIn;
+  animation: 1s fadeIn;
+}
+
+.page-header-logo-expanded {
+  display: inline;
+}
+
+.page-header-logo-collapsed {
+  display: none;
+}
+
 .page-header-wrap {
   display: flex;
   flex: 1;
